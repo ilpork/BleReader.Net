@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Authors>ilpork</Authors>
+    <PackageTags>ble, ruuvi, ruuvitag, bluetooth le</PackageTags>
+    <Company />
+    <Description>Simple wrapper to read manufacturer data from Bluetooth LE devices. 
+
+It currently supports Linux using DBus and BlueZ. In addition to providing raw manufacturer data, it also provides parsed data of specific devices (currently RuuviTag from Ruuvi).</Description>
+    <PackageId>BleReader.Net</PackageId>
+    <Product>BleReader.Net</Product>
+    <PackageProjectUrl>https://github.com/ilpork/BleReaderNet</PackageProjectUrl>
+    <Version>1.0.0-alpha.1</Version>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HashtagChris.DotNetBlueZ" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
