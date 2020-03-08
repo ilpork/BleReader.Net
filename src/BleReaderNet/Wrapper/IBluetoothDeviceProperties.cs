@@ -6,6 +6,5 @@ namespace BleReaderNet.Wrapper
         string Name { get; }
         string Address { get; }
         ManufacturerData GetManufacturerData();
-
     }
 }

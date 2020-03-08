@@ -15,14 +15,14 @@ namespace BleReaderNet.Wrapper.DotNetBlueZ
         {
             _device = device;            
         }
-        public async Task<IBluetoothDeviceProperties> GetProperties()
+        public async Task<IBluetoothDeviceProperties> GetPropertiesAsync()
         {
             var dnbProperties = await _device.GetAllAsync();
 
             return new DotNetBlueZProperties(dnbProperties);
         }
 
-        public async Task<ManufacturerData> GetManufacturerData()
+        public async Task<ManufacturerData> GetManufacturerDataAsync()
         {
             var keyValuePair = (await _device.GetManufacturerDataAsync())?.FirstOrDefault();
 

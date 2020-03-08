@@ -6,7 +6,7 @@ namespace BleReaderNet.Wrapper.DotNetBlueZ
 {
     public class DotNetBlueZService : IBluetoothService
     {
-        public async Task<IBluetoothAdapter> GetAdapter(string name)
+        public async Task<IBluetoothAdapter> GetAdapterAsync(string name)
         {
             IBluetoothAdapter adapter = null;
             if (name != null)

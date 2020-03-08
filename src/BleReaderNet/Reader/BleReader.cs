@@ -22,7 +22,7 @@ namespace BleReaderNet.Reader
         }
 
         /// <inheritdoc/>
-        public async Task<IReadOnlyList<DeviceInfo>> GetAllDevices()
+        public async Task<IReadOnlyList<DeviceInfo>> GetAllDevicesAsync()
         {
             if (_deviceList == null)
             {
@@ -33,7 +33,7 @@ namespace BleReaderNet.Reader
 
             foreach (var device in _deviceList)
             {
-                var properties = await device.GetProperties();                               
+                var properties = await device.GetPropertiesAsync();                               
 
                 deviceInfoList.Add(new DeviceInfo()
                 {
@@ -46,9 +46,9 @@ namespace BleReaderNet.Reader
         }
 
         /// <inheritdoc/>
-        public async Task<int> Scan(string adapterName = null, int scanDurationSeconds = DefaultScanDurationSeconds)
+        public async Task<int> ScanAsync(string adapterName = null, int scanDurationSeconds = DefaultScanDurationSeconds)
         {
-            var adapter = await _bluetoothService.GetAdapter(adapterName);
+            var adapter = await _bluetoothService.GetAdapterAsync(adapterName);
 
             if (adapter == null)
             {
@@ -64,9 +64,9 @@ namespace BleReaderNet.Reader
         }
 
         /// <inheritdoc cref="IBleReader"/>
-        public async Task<T> GetManufacturerData<T>(string macAddress)
+        public async Task<T> GetManufacturerDataAsync<T>(string macAddress)
         {
-            var manufacturerData = await ReadDeviceData(macAddress);
+            var manufacturerData = await ReadDeviceDataAsync(macAddress);
 
             if (manufacturerData != null)
             {
@@ -84,7 +84,7 @@ namespace BleReaderNet.Reader
             return default(T);
         }
 
-        private async Task<ManufacturerData> ReadDeviceData(string macAddress)
+        private async Task<ManufacturerData> ReadDeviceDataAsync(string macAddress)
         {
             if (macAddress == null)
             {
@@ -98,7 +98,7 @@ namespace BleReaderNet.Reader
 
             foreach (var device in _deviceList)
             {
-                var properties = await device.GetProperties();
+                var properties = await device.GetPropertiesAsync();
 
                 if (properties.Address.Equals(macAddress))
                 {

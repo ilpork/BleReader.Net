@@ -29,8 +29,8 @@ namespace BleNetApp
             }
                             
             Console.WriteLine($"Scanning for {scanTimeSeconds} seconds...\n");
-            await reader.Scan(adapterName, scanTimeSeconds);
-            var deviceInfoList = await reader.GetAllDevices();
+            await reader.ScanAsync(adapterName, scanTimeSeconds);
+            var deviceInfoList = await reader.GetAllDevicesAsync();
 
             foreach (var deviceInfo in deviceInfoList)
             {                
@@ -42,7 +42,7 @@ namespace BleNetApp
 
                 if (deviceInfo.ManufacturerData?.Id == 1177)
                 {
-                    var ruuviData = await reader.GetManufacturerData<RuuviTag>(deviceInfo.Address);
+                    var ruuviData = await reader.GetManufacturerDataAsync<RuuviTag>(deviceInfo.Address);
                     Console.WriteLine($"RuuviTag sensor data: {JsonSerializer.Serialize(ruuviData, new JsonSerializerOptions() { WriteIndented = true })}");
                 }             
             }

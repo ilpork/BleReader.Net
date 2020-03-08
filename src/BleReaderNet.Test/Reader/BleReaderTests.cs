@@ -35,10 +35,10 @@ namespace BleReaderNet.Test.Reader
             }
 
             btAdapterMock.Setup(a => a.GetDevicesAsync()).ReturnsAsync(sourceDeviceList);
-            btServiceMock.Setup(s => s.GetAdapter(adapterName)).ReturnsAsync(btAdapterMock.Object);
+            btServiceMock.Setup(s => s.GetAdapterAsync(adapterName)).ReturnsAsync(btAdapterMock.Object);
             var bleReader = new BleReader(btServiceMock.Object);
 
-            var deviceCount = await bleReader.Scan(adapterName, 0);
+            var deviceCount = await bleReader.ScanAsync(adapterName, 0);
 
             Assert.AreEqual(sourceDeviceList.Count, deviceCount, "Scanning did not return correct amount of devices found");
         }
@@ -53,10 +53,10 @@ namespace BleReaderNet.Test.Reader
             var sourceDeviceList = new List<IBluetoothDevice>();         
 
             btAdapterMock.Setup(a => a.GetDevicesAsync()).ReturnsAsync(sourceDeviceList);            
-            btServiceMock.Setup(s => s.GetAdapter(null)).ReturnsAsync(btAdapterMock.Object);
+            btServiceMock.Setup(s => s.GetAdapterAsync(null)).ReturnsAsync(btAdapterMock.Object);
             var bleReader = new BleReader(btServiceMock.Object);
 
-            var deviceCount = await bleReader.Scan(adapterName, 0);
+            var deviceCount = await bleReader.ScanAsync(adapterName, 0);
 
             Assert.AreEqual(sourceDeviceList.Count, deviceCount, "Using null as adapter name should result in using first found adapter");
         }
@@ -69,9 +69,9 @@ namespace BleReaderNet.Test.Reader
             var btServiceMock = new Mock<IBluetoothService>();
             IBluetoothAdapter btAdapter = null;            
                         
-            btServiceMock.Setup(s => s.GetAdapter(adapterName)).ReturnsAsync(btAdapter);
+            btServiceMock.Setup(s => s.GetAdapterAsync(adapterName)).ReturnsAsync(btAdapter);
             var bleReader = new BleReader(btServiceMock.Object);
-            await bleReader.Scan();
+            await bleReader.ScanAsync();
         }
 
         [TestMethod]
@@ -86,12 +86,12 @@ namespace BleReaderNet.Test.Reader
             var sourceDeviceList = new List<IBluetoothDevice>();
 
             btAdapterMock.Setup(a => a.GetDevicesAsync()).ReturnsAsync(sourceDeviceList);
-            btServiceMock.Setup(s => s.GetAdapter(adapterName)).ReturnsAsync(btAdapterMock.Object);
+            btServiceMock.Setup(s => s.GetAdapterAsync(adapterName)).ReturnsAsync(btAdapterMock.Object);
             var bleReader = new BleReader(btServiceMock.Object);
 
             var sw = new Stopwatch();
             sw.Start();
-            var deviceCount = await bleReader.Scan(adapterName, scanDurationSeconds);
+            var deviceCount = await bleReader.ScanAsync(adapterName, scanDurationSeconds);
             var elapsedSeconds = (int)TimeSpan.FromMilliseconds(sw.ElapsedMilliseconds).TotalSeconds;
             sw.Stop();
 
@@ -104,7 +104,7 @@ namespace BleReaderNet.Test.Reader
         {
             var btServiceMock = new Mock<IBluetoothService>();
             var bleReader = new BleReader(btServiceMock.Object);
-            await bleReader.GetAllDevices();
+            await bleReader.GetAllDevicesAsync();
         }
 
         [TestMethod]        
@@ -124,12 +124,12 @@ namespace BleReaderNet.Test.Reader
             btPropertiesMock.Setup(p => p.Address).Returns(address);
             btPropertiesMock.Setup(p => p.Name).Returns(name);
             btPropertiesMock.Setup(p => p.GetManufacturerData()).Returns(new ManufacturerData() { Id = manufacturerId, Data = manufacturerData });
-            btDeviceMock.Setup(d => d.GetProperties()).ReturnsAsync(btPropertiesMock.Object);
+            btDeviceMock.Setup(d => d.GetPropertiesAsync()).ReturnsAsync(btPropertiesMock.Object);
             btAdapterMock.Setup(a => a.GetDevicesAsync()).ReturnsAsync(sourceDeviceList);
-            btServiceMock.Setup(s => s.GetAdapter(adapterName)).ReturnsAsync(btAdapterMock.Object);
+            btServiceMock.Setup(s => s.GetAdapterAsync(adapterName)).ReturnsAsync(btAdapterMock.Object);
             var bleReader = new BleReader(btServiceMock.Object);            
-            await bleReader.Scan(adapterName, 0);
-            var deviceInfoList = await bleReader.GetAllDevices();
+            await bleReader.ScanAsync(adapterName, 0);
+            var deviceInfoList = await bleReader.GetAllDevicesAsync();
 
             Assert.AreEqual(sourceDeviceList.Count, deviceInfoList.Count, "Scanning did take expected time");
             Assert.AreEqual(name, deviceInfoList[0].Name, "Name is not correct");
@@ -154,12 +154,12 @@ namespace BleReaderNet.Test.Reader
             btPropertiesMock.Setup(p => p.Address).Returns(address);
             btPropertiesMock.Setup(p => p.Name).Returns(name);
             btPropertiesMock.Setup(p => p.GetManufacturerData()).Returns(manufacturerData);
-            btDeviceMock.Setup(d => d.GetProperties()).ReturnsAsync(btPropertiesMock.Object);
+            btDeviceMock.Setup(d => d.GetPropertiesAsync()).ReturnsAsync(btPropertiesMock.Object);
             btAdapterMock.Setup(a => a.GetDevicesAsync()).ReturnsAsync(sourceDeviceList);
-            btServiceMock.Setup(s => s.GetAdapter(adapterName)).ReturnsAsync(btAdapterMock.Object);
+            btServiceMock.Setup(s => s.GetAdapterAsync(adapterName)).ReturnsAsync(btAdapterMock.Object);
             var bleReader = new BleReader(btServiceMock.Object);
-            await bleReader.Scan(adapterName, 0);
-            var deviceInfoList = await bleReader.GetAllDevices();
+            await bleReader.ScanAsync(adapterName, 0);
+            var deviceInfoList = await bleReader.GetAllDevicesAsync();
 
             Assert.AreEqual(sourceDeviceList.Count, deviceInfoList.Count, "Scanning did take expected time");
             Assert.AreEqual(name, deviceInfoList[0].Name, "Name is not correct");
@@ -185,12 +185,12 @@ namespace BleReaderNet.Test.Reader
             btPropertiesMock.Setup(p => p.Address).Returns(address);
             btPropertiesMock.Setup(p => p.Name).Returns(name);
             btPropertiesMock.Setup(p => p.GetManufacturerData()).Returns(new ManufacturerData() { Id = manufacturerId, Data = manufacturerData });
-            btDeviceMock.Setup(d => d.GetProperties()).ReturnsAsync(btPropertiesMock.Object);
+            btDeviceMock.Setup(d => d.GetPropertiesAsync()).ReturnsAsync(btPropertiesMock.Object);
             btAdapterMock.Setup(a => a.GetDevicesAsync()).ReturnsAsync(sourceDeviceList);
-            btServiceMock.Setup(s => s.GetAdapter(adapterName)).ReturnsAsync(btAdapterMock.Object);
+            btServiceMock.Setup(s => s.GetAdapterAsync(adapterName)).ReturnsAsync(btAdapterMock.Object);
             var bleReader = new BleReader(btServiceMock.Object);
-            await bleReader.Scan(adapterName, 0);
-            var ruuviTag = await bleReader.GetManufacturerData<RuuviTag>(address);
+            await bleReader.ScanAsync(adapterName, 0);
+            var ruuviTag = await bleReader.GetManufacturerDataAsync<RuuviTag>(address);
 
             Assert.IsNotNull(ruuviTag, "RuuviTag instance should not be null");           
         }
@@ -213,12 +213,12 @@ namespace BleReaderNet.Test.Reader
             btPropertiesMock.Setup(p => p.Address).Returns(address);
             btPropertiesMock.Setup(p => p.Name).Returns(name);
             btPropertiesMock.Setup(p => p.GetManufacturerData()).Returns(new ManufacturerData() { Id = manufacturerId, Data = manufacturerData });
-            btDeviceMock.Setup(d => d.GetProperties()).ReturnsAsync(btPropertiesMock.Object);
+            btDeviceMock.Setup(d => d.GetPropertiesAsync()).ReturnsAsync(btPropertiesMock.Object);
             btAdapterMock.Setup(a => a.GetDevicesAsync()).ReturnsAsync(sourceDeviceList);
-            btServiceMock.Setup(s => s.GetAdapter(adapterName)).ReturnsAsync(btAdapterMock.Object);
+            btServiceMock.Setup(s => s.GetAdapterAsync(adapterName)).ReturnsAsync(btAdapterMock.Object);
             IBleReader bleReader = new BleReader(btServiceMock.Object);
-            await bleReader.Scan(adapterName, 0);
-            var ruuviTag = await bleReader.GetManufacturerData<RuuviTag>("someaddress");
+            await bleReader.ScanAsync(adapterName, 0);
+            var ruuviTag = await bleReader.GetManufacturerDataAsync<RuuviTag>("someaddress");
             
             Assert.IsNull(ruuviTag, "RuuviTag instance should not be null");
         }
@@ -229,7 +229,7 @@ namespace BleReaderNet.Test.Reader
         {
             var btServiceMock = new Mock<IBluetoothService>();
             var bleReader = new BleReader(btServiceMock.Object);
-            await bleReader.GetAllDevices();
+            await bleReader.GetAllDevicesAsync();
         }
 
         [TestMethod]
@@ -238,7 +238,7 @@ namespace BleReaderNet.Test.Reader
         {
             var btServiceMock = new Mock<IBluetoothService>();
             var bleReader = new BleReader(btServiceMock.Object);
-            await bleReader.GetManufacturerData<RuuviTag>(null);
+            await bleReader.GetManufacturerDataAsync<RuuviTag>(null);
         }
 
         [TestMethod]
@@ -260,12 +260,12 @@ namespace BleReaderNet.Test.Reader
             btPropertiesMock.Setup(p => p.Address).Returns(address);
             btPropertiesMock.Setup(p => p.Name).Returns(name);
             btPropertiesMock.Setup(p => p.GetManufacturerData()).Returns(new ManufacturerData() { Id = manufacturerId, Data = manufacturerData });
-            btDeviceMock.Setup(d => d.GetProperties()).ReturnsAsync(btPropertiesMock.Object);
+            btDeviceMock.Setup(d => d.GetPropertiesAsync()).ReturnsAsync(btPropertiesMock.Object);
             btAdapterMock.Setup(a => a.GetDevicesAsync()).ReturnsAsync(sourceDeviceList);
-            btServiceMock.Setup(s => s.GetAdapter(adapterName)).ReturnsAsync(btAdapterMock.Object);
+            btServiceMock.Setup(s => s.GetAdapterAsync(adapterName)).ReturnsAsync(btAdapterMock.Object);
             var bleReader = new BleReader(btServiceMock.Object);
-            await bleReader.Scan(adapterName, 0);
-            var data = await bleReader.GetManufacturerData<BleReader>(address);            
+            await bleReader.ScanAsync(adapterName, 0);
+            var data = await bleReader.GetManufacturerDataAsync<BleReader>(address);            
         }
     }
 }

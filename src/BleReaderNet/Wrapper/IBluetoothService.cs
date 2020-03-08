@@ -4,6 +4,6 @@ namespace BleReaderNet.Wrapper
 {
     public interface IBluetoothService
     {
-        Task<IBluetoothAdapter> GetAdapter(string name);
+        Task<IBluetoothAdapter> GetAdapterAsync(string name);
     }
 }

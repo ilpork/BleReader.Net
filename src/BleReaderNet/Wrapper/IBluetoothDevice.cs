@@ -4,7 +4,7 @@ namespace BleReaderNet.Wrapper
 {
     public interface IBluetoothDevice
     {
-        Task<IBluetoothDeviceProperties> GetProperties();
-        Task<ManufacturerData> GetManufacturerData();
+        Task<IBluetoothDeviceProperties> GetPropertiesAsync();
+        Task<ManufacturerData> GetManufacturerDataAsync();
     }
 }

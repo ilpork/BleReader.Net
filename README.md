@@ -19,8 +19,8 @@ dotnet add package BleReaderNet
 Get RuuviTag data:
 ```
 IBleReader reader = new BleReader(new DotNetBlueZService());
-await reader.Scan("hci0", 5);
-var ruuviTag = await reader.GetManufacturerData<RuuviTag>("12:34:56:78:90:AB");
+await reader.ScanAsync("hci0", 5);
+var ruuviTag = await reader.GetManufacturerDataAsync<RuuviTag>("12:34:56:78:90:AB");
 if (ruuviTag != null)
 {
     var dataAsJson = JsonSerializer.Serialize(ruuviTag, new JsonSerializerOptions() { WriteIndented = true });
@@ -51,8 +51,8 @@ Data: {
 Get information of all found devices:
 ```
 IBleReader reader = new BleReader(new DotNetBlueZService());
-await reader.Scan("hci0", 5);
-var deviceInfoList = await reader.GetAllDevices();
+await reader.ScanAsync("hci0", 5);
+var deviceInfoList = await reader.GetAllDevicesAsync();
 
 var firstDevice = deviceInfoList.FirstOrDefault();
 if (firstDevice != null)
