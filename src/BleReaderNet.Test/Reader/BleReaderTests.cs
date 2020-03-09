@@ -76,7 +76,7 @@ namespace BleReaderNet.Test.Reader
 
         [TestMethod]
         [DataRow(1)]
-        [DataRow(2)]
+        [DataRow(2)]        
         public async Task Scan_ScanDuration(int scanDurationSeconds)
         {
             var adapterName = "adapter";
@@ -91,11 +91,11 @@ namespace BleReaderNet.Test.Reader
 
             var sw = new Stopwatch();
             sw.Start();
-            var deviceCount = await bleReader.ScanAsync(adapterName, scanDurationSeconds);
-            var elapsedSeconds = (int)TimeSpan.FromMilliseconds(sw.ElapsedMilliseconds).TotalSeconds;
+            var deviceCount = await bleReader.ScanAsync(adapterName, scanDurationSeconds);            
             sw.Stop();
+            var elapsedSeconds =  Math.Round(TimeSpan.FromMilliseconds(sw.ElapsedMilliseconds).TotalSeconds, 0);
 
-            Assert.AreEqual(scanDurationSeconds, elapsedSeconds, "Scanning did take expected time");
+            Assert.AreEqual(scanDurationSeconds, elapsedSeconds, "Scanning did not take expected time");
         }
 
         [TestMethod]
