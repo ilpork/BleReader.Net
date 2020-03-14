@@ -12,7 +12,7 @@ It currently supports Linux using DBus and BlueZ (using [DotNet-BlueZ](https://g
 
 ## Installation
 ```
-dotnet add package BleReaderNet
+dotnet add package BleReader.Net
 ```
 
 ## Usage
