@@ -1,4 +1,4 @@
-# BleReaderNet
+# BleReader.Net
 A simple wrapper made to read manufacturer data from Bluetooth LE devices using .NET. 
 
 It currently supports Linux using DBus and BlueZ (using [DotNet-BlueZ](https://github.com/hashtagchris/DotNet-BlueZ) library). In addition to providing raw manufacturer data, it provides parsed data for specific devices (supports only  [RuuviTag](https://ruuvi.com/ruuvitag-specs/) currently).
