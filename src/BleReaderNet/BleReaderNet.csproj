@@ -7,11 +7,11 @@
     <Company />
     <Description>Simple wrapper to read manufacturer data from Bluetooth LE devices. 
 
-It currently supports Linux using DBus and BlueZ. In addition to providing raw manufacturer data, it also provides parsed data of specific devices (currently supports RuuviTag).</Description>
+It currently supports Linux using BlueZ and DBus. In addition to providing raw manufacturer data, it also provides parsed data of specific devices (currently supports RuuviTag).</Description>
     <PackageId>BleReader.Net</PackageId>
     <Product>BleReader.Net</Product>
-    <PackageProjectUrl>https://github.com/ilpork/BleReaderNet</PackageProjectUrl>
-    <Version>1.0.0-alpha.2</Version>
+    <PackageProjectUrl>https://github.com/ilpork/BleReader.Net</PackageProjectUrl>
+    <Version>1.0.0</Version>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
