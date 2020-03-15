@@ -3,7 +3,7 @@
 
 A simple wrapper made to read manufacturer data from Bluetooth LE devices using .NET. 
 
-It currently supports Linux using DBus and BlueZ (using [DotNet-BlueZ](https://github.com/hashtagchris/DotNet-BlueZ) library). In addition to providing raw manufacturer data, it provides parsed data for specific devices (supports only  [RuuviTag](https://ruuvi.com/ruuvitag-specs/) currently).
+It currently supports Linux using DBus and BlueZ (using [DotNet-BlueZ](https://github.com/hashtagchris/DotNet-BlueZ)). In addition to providing raw manufacturer data, it provides parsed data for specific devices (supports only  [RuuviTag](https://ruuvi.com/ruuvitag-specs/) currently).
 
 ## Features
 * Read data of a RuuviTag
@@ -13,6 +13,7 @@ It currently supports Linux using DBus and BlueZ (using [DotNet-BlueZ](https://g
 * Linux system with BlueZ 5.50 or later installed
 
 ## Installation
+Available as NuGet package:
 ```
 dotnet add package BleReader.Net
 ```
@@ -20,9 +21,13 @@ dotnet add package BleReader.Net
 ## Usage
 Get RuuviTag data:
 ```
+var adapterName = "hci0";
+var scanDurationSeconds = 5;
+var ruuviMacAddress = "12:34:56:78:90:AB";
+
 IBleReader reader = new BleReader(new DotNetBlueZService());
-await reader.ScanAsync("hci0", 5);
-var ruuviTag = await reader.GetManufacturerDataAsync<RuuviTag>("12:34:56:78:90:AB");
+await reader.ScanAsync(adapterName, scanDurationSeconds);
+var ruuviTag = await reader.GetManufacturerDataAsync<RuuviTag>(ruuviMacAddress);
 if (ruuviTag != null)
 {
     var dataAsJson = JsonSerializer.Serialize(ruuviTag, new JsonSerializerOptions() { WriteIndented = true });
@@ -52,8 +57,11 @@ Data: {
 ```
 Get information of all found devices:
 ```
+var adapterName = "hci0";
+var scanDurationSeconds = 5;
+
 IBleReader reader = new BleReader(new DotNetBlueZService());
-await reader.ScanAsync("hci0", 5);
+await reader.ScanAsync(adapterName, scanDurationSeconds);
 var deviceInfoList = await reader.GetAllDevicesAsync();
 
 var firstDevice = deviceInfoList.FirstOrDefault();
@@ -76,11 +84,6 @@ Bluetooth device with address 12:34:56:78:90:AB found
 Manufacturer ID = 1177
 Manufacturer data = 05-0E-24-2A-F6-C6-06-FF-FC-FF-F4-04-08-A0-36-B8-31-E6-12-34-56-78-90-AB
 ```
-
-
-## Future plans
-* Support of other platforms (Windows?)
-* Support for other device types than RuuviTag
 
 ## Contribute
 You can contribute by submitting bugs, feature requests or pull requests (like implementing support for other device types).
