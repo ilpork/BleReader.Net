@@ -1,5 +1,5 @@
 # BleReader.Net 
-[![Build Status](https://ilpork.visualstudio.com/imrk/_apis/build/status/ilpork.BleReaderNet?branchName=master)](https://ilpork.visualstudio.com/imrk/_build/latest?definitionId=2&branchName=master)
+[![Build Status](https://dev.azure.com/ilpork/github/_apis/build/status/ilpork.BleReaderNet?branchName=master)](https://dev.azure.com/ilpork/github/_build/latest?definitionId=2&branchName=master)
 
 A simple wrapper made to read manufacturer data from Bluetooth LE devices using .NET. 
 
